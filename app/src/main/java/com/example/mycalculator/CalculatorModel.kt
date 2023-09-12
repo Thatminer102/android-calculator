@@ -18,7 +18,7 @@ class CalculatorModel {
             val result = formatStr.evaluate()
             val numberValue = result.numberValue
 
-            if (numberValue.abs() > BigDecimal(1000000)) {
+            if (numberValue.abs() >= BigDecimal(1000000) || numberValue.abs() >= BigDecimal(0.0000001)) {
                 numberValue.round(MathContext(7, RoundingMode.HALF_UP)).toString()
             } else {
                 numberValue.round(MathContext(8, RoundingMode.HALF_UP)).toPlainString()
