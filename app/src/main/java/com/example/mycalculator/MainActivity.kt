@@ -13,7 +13,7 @@ class MainActivity : AppCompatActivity(),CalculatorContract.View {
     private val inputStr = StringBuilder()
     private lateinit var mPresenter: CalculatorPresenter
 
-    private var deleteInputStrOnNextInput: Boolean = false
+    private var clearInputOnNextInput: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -78,28 +78,28 @@ class MainActivity : AppCompatActivity(),CalculatorContract.View {
         val equalsButton = findViewById<Button>(R.id.button_equals)
         equalsButton.setOnClickListener {
             mPresenter.doCalculation(getInputStr())
-            deleteInputStrOnNextInput = true
+            clearInputOnNextInput = true
         }
     }
 
     private fun onButtonClicked(buttonText: String) {
-        if (deleteInputStrOnNextInput) {
-            clearInputStr()
+        if (clearInputOnNextInput) {
+            setOutputTextView("")
         }
         appendInputStr(buttonText)
         setInputTextView(getInputStr())
-        deleteInputStrOnNextInput = false
+        clearInputOnNextInput = false
     }
 
     private fun onBackspaceClicked() {
-        if (deleteInputStrOnNextInput) {
-            clearInputStr()
+        if (clearInputOnNextInput) {
+            setOutputTextView("")
         }
         if (getInputStr().isNotEmpty()) {
             deleteLastCharOfInputStr()
             setInputTextView(getInputStr())
         }
-        deleteInputStrOnNextInput = false
+        clearInputOnNextInput = false
     }
 
     override fun setInputTextView(inputStr: String) {
